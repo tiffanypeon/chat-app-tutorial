@@ -1,0 +1,13 @@
+var groups = $('#groups-list');
+var group = groups.find("[data-group-id='" + "<%= @group.id %>" + "']");
+
+if (group.length !== 1) {
+  groups.append("<%= j(render 'groups/group', group: @group, user: current_user %>");
+  group = groups.find("[data-group-id='" + "<%= @group.id %>" + "']");
+}
+
+group.find('.panel-body').show();
+
+var messages_list = group.find('.messages-list');
+var height = messages_list[0].scrollHeight;
+messages_list.scrollTop(height);

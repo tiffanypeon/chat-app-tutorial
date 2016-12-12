@@ -6,3 +6,8 @@ password = 'pass123'
     password_confirmation: password
   )
 end
+
+Group.create!(topic: 'Ruby')
+Group.create!(topic: 'Javascript')
+Group.create!(topic: 'CSS')
+Group.create!(topic: 'Bootcamps')
