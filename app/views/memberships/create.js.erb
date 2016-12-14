@@ -2,7 +2,7 @@ var groups = $('#groups-list');
 var group = groups.find("[data-group-id='" + "<%= @group.id %>" + "']");
 
 if (group.length !== 1) {
-  groups.append("<%= j(render 'groups/group', group: @group, user: current_user %>");
+  groups.append("<%= j(render 'groups/group', group: @group, user: current_user) %>");
   group = groups.find("[data-group-id='" + "<%= @group.id %>" + "']");
 }
 
