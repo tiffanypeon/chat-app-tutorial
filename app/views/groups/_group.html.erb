@@ -11,7 +11,7 @@
           <%= render 'groups/group_content', messages: group.messages, user: user %>
         </ul>
       </div>
-      <form class="new_message">
+      <form class="new_group_message">
         <input name="group_id" type="hidden" value="<%= group.id %>">
         <input name="user_id" type="hidden" value="<%= user.id %>">
         <textarea name="body" class="form-control"></textarea>
