@@ -11,7 +11,6 @@ class MessageBroadcastJob < ApplicationJob
     else
       sender = message.user
       recipients = message.group.users.where.not(id: sender.id)
-
       broadcast_to_group_sender(sender, message)
       broadcast_to_recipients(recipients, message)
     end
@@ -39,7 +38,7 @@ class MessageBroadcastJob < ApplicationJob
   def broadcast_to_group_sender(user, message)
     ActionCable.server.broadcast(
       "groups-#{user.id}",
-      message: render_message(message, user),
+      message: render_group_message(message, user),
       group_id: message.group.id
     )
   end
@@ -49,7 +48,7 @@ class MessageBroadcastJob < ApplicationJob
       ActionCable.server.broadcast(
         "groups-#{user.id}",
         window: render_group_window(message.group, user),
-        message: render_message(message, user),
+        message: render_group_message(message, user),
         group_id: message.group.id
       )
     end
@@ -58,6 +57,13 @@ class MessageBroadcastJob < ApplicationJob
   def render_message(message, user)
     ApplicationController.render(
       partial: 'messages/message',
+      locals: { message: message, user: user }
+    )
+  end
+
+  def render_group_message(message, user)
+    ApplicationController.render(
+      partial: 'messages/group_message',
       locals: { message: message, user: user }
     )
   end
